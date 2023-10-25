@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { regexForUrl } = require('../tools/config');
 // напишите код здесь
 const movieSchema = new mongoose.Schema({
   country: {
@@ -25,14 +25,32 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return regexForUrl.test(v);
+      },
+      message: (props) => `${props.value} - невалидная ссылка!`,
+    },
   },
   trailerLink: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return regexForUrl.test(v);
+      },
+      message: (props) => `${props.value} - невалидная ссылка!`,
+    },
   },
   thumbnail: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return regexForUrl.test(v);
+      },
+      message: (props) => `${props.value} - невалидная ссылка!`,
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

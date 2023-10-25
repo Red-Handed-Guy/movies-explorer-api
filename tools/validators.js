@@ -1,4 +1,5 @@
 const { Joi } = require('celebrate');
+const { regexForUrl } = require('./config');
 
 module.exports.createUserValid = {
   body: Joi.object().keys({
@@ -22,18 +23,18 @@ module.exports.createMovieValid = {
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required(),
-    trailerLink: Joi.string().required(),
+    image: Joi.string().required().regex(regexForUrl),
+    trailerLink: Joi.string().required().regex(regexForUrl),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-    thumbnail: Joi.string().required(),
+    thumbnail: Joi.string().required().regex(regexForUrl),
     movieId: Joi.number().required(),
   }),
 };
 
 module.exports.movieIdValid = {
   params: Joi.object().keys({
-    _id: Joi.number().required(),
+    _id: Joi.string().required().length(24).hex(),
   }),
 };
 

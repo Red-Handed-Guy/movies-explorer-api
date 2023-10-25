@@ -13,7 +13,7 @@ router.use('/movies', auth, require('./movies'));
 
 router.patch('/signout', auth, logout);
 
-router.use('*', (req, res, next) => {
+router.use('*', auth, (req, res, next) => {
   next(new NotFoundError('Ссылка не найдена'));
 });
 

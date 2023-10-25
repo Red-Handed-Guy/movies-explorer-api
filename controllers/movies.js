@@ -27,7 +27,7 @@ module.exports.getMovies = (req, res, next) => {
 
 module.exports.delMovieByMovieId = (req, res, next) => {
   const { _id } = req.params;
-  Movie.findOne({ movieId: _id })
+  Movie.findById(_id)
     .orFail(() => new NotFoundError('Запрашиваемый фильм не найден'))
     .then((movie) => {
       if (!(movie.owner.toString() === req.user._id)) {

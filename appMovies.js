@@ -1,15 +1,18 @@
 require('dotenv').config();
 const express = require('express');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 // Слушаем 3000 порт
 const {
-  NODE_ENV, PORT, MDB_URL, BASE_URL,
+  NODE_ENV, PORT, MDB_URL,
 } = process.env;
-const { ServerError } = require('./errors/Server');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { errorHandler } = require('./tools/error_handler');
+const { mdbDev, corsOptions, rateLimitOptions } = require('./tools/config');
 
 const app = express();
 
@@ -17,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose
-  .connect(NODE_ENV === 'production' ? MDB_URL : 'mongodb://127.0.0.1:27017/moviesDB', {
+  .connect(NODE_ENV === 'production' ? MDB_URL : mdbDev, {
     useNewUrlParser: true,
   })
   .then(() => console.log('Connected to MongoDB'))
@@ -27,13 +30,9 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
-const corsOptions = {
-  origin: ['http://127.0.0.1:3001', BASE_URL],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  preflightContinue: false,
-  credentials: true,
-  allowedHeaders: ['Content-Type'],
-};
+app.use(rateLimit(rateLimitOptions));
+
+app.use(helmet());
 
 app.use(cors(corsOptions));
 
@@ -44,18 +43,7 @@ app.use(errorLogger);
 app.use(errors());
 
 app.use((err, req, res, next) => {
-  console.log(err);
-  const serverErr = new ServerError('На сервере произошла ошибка');
-  const { statusCode = serverErr.statusCode, message } = err;
-
-  res
-    .status(err.statusCode)
-    .send({
-      message: statusCode === serverErr.statusCode
-        ? serverErr.message
-        : message,
-    });
-  return next();
+  errorHandler(err, req, res, next);
 });
 
 app.listen(NODE_ENV === 'production' ? PORT : 3000, () => {

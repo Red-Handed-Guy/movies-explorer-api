@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
       validator(v) {
         return validator.isEmail(v);
       },
-      message: (props) => `${props.value} - не валидный email!`,
+      message: (props) => `${props.value} - невалидный email!`,
     },
   },
   password: {
