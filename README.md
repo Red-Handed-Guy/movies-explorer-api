@@ -100,7 +100,7 @@ NodeJS, ExpressJS, MongoDB
 | `_id` | `string` | **Required**. **Length(24)**. **Hex** Movie Id|
 
 
-#### Sign up
+#### Sign in
 
 ```http
   POST /signin
@@ -114,7 +114,7 @@ NodeJS, ExpressJS, MongoDB
 
 #### Sign up
 ```http
-  POST /signun
+  POST /signup
 ```
 
 | Parameter | Type     | Description                       |
