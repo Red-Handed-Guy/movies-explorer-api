@@ -9,8 +9,8 @@
 - Создание/проверка индивидуального токена
 - Работа с NoSQL БД
 - Хранение зашифрованного пароля и данных пользователя
-- Сохранение/удаление фильмов и пользователей в/из БД
 - Валидация Api запросов
+- Сохранение/удаление фильмов и пользователей в/из БД
 - Регистрация/Авторизация
 
 
@@ -24,6 +24,8 @@
 ## Demo
 
 Ссылка на рабочий сайт: https://red-movies.nomoredomainsrocks.ru
+
+Ссылка на Api: https://api.red-movies.nomoredomainsrocks.ru
 
 
 ## Related
@@ -113,7 +115,7 @@
 #### Delete movie
 
 ```http
-  POST /movies/:_id
+  DELETE /movies/:_id
 ```
 
 | Parameter | Type     | Description                |
@@ -122,7 +124,7 @@
 | `_id` | `string` | **Required**. **Length(24)**. **Hex** Movie Id|
 
 
-#### Sign up
+#### Sign in
 
 ```http
   POST /signin
@@ -136,7 +138,7 @@
 
 #### Sign up
 ```http
-  POST /signun
+  POST /signup
 ```
 
 | Parameter | Type     | Description                       |
