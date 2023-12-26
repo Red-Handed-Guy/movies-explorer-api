@@ -16,7 +16,9 @@
 
 ## Tech Stack
 
-NodeJS, ExpressJS, MongoDB
+![Static Badge](https://img.shields.io/badge/Node.js-teal?style=for-the-badge&logo=Node.js&logoColor=%2302DC02&color=%23F7F7F7)
+![Static Badge](https://img.shields.io/badge/Express.js-black?style=for-the-badge&logo=Express&logoColor=%23fff&color=%23EFD81D)
+![Static Badge](https://img.shields.io/badge/MongoDB-teal?style=for-the-badge&logo=MongoDB&logoColor=%2300ED64&color=%23001E2B)
 
 
 ## Demo
@@ -29,6 +31,28 @@ NodeJS, ExpressJS, MongoDB
 [Frontend](https://github.com/Red-Handed-Guy/movies-explorer-frontend) часть приложения
 
 [beatfilm-movies Api](https://api.nomoreparties.co/beatfilm-movies) 
+
+
+## Deployment
+
+Работает с версиями `NodeJS v20.10.0` и `npm 10.2.3`
+
+
+1) Для корректной работы серера необходимо установить [MongoDB](https://mongodb.prakticum-team.ru/try/download/community-kubernetes-operator) версии 4.4.27
+2) Скачать архив с ветки Main
+3) Разархивировать в любую папку
+4) С помощью терминала git перейти в эту папку
+
+5) Установить зависимости командой
+```bash
+  npm ci
+```
+6) Запустить командой
+```bash
+  npm run start
+```
+7) Запустить MongoDB
+8) Сервер по-умолчанию будет работать на 3000 порту
 
 
 ## API Reference
